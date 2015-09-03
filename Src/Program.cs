@@ -10,13 +10,15 @@ namespace Blaze
 {
     internal static class Program
     {
+        public static Thread MainThread { get; private set; }
+
         internal static void Main(string[] args)
         {
-            var mainThread = new Thread(MainThread);
-            mainThread.Start(args);
+            MainThread = new Thread(MainThreadEntry);
+            MainThread.Start(args);
         }
 
-        internal static void MainThread(object state)
+        internal static void MainThreadEntry(object state)
         {
             var args = (string[])state;
 
